@@ -5,6 +5,7 @@ using UnityEngine;
 public class TestCharacter : MonoBehaviour
 {
     public float movementSpeed = 10f;
+    public SpawnManager spawnManager;
 
     // Start is called before the first frame update
     void Start()
@@ -20,5 +21,10 @@ public class TestCharacter : MonoBehaviour
         float vMovement = Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime;
 
         transform.Translate(new Vector3(hMovement, 0, vMovement));
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+       spawnManager.SpawnTriggerEntered();
     }
 }
