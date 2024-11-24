@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlotSpawner : MonoBehaviour
 {
-    private int initAmount = 5;
-    private float plotSize = 40f;
+    private int initAmount = 10;
+    private float plotSize = 20f;
     private float xPosLeft = -31.95f;
     private float xPosRight = 31.95f;
-    private float lastZPos = 10f;
+    private float lastZPos = 0f;
 
     public List<GameObject> plots;
 
