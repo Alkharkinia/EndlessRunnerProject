@@ -6,8 +6,8 @@ public class TestController : MonoBehaviour
 {
     private Transform player;
 
-    private float yOffset = 1f;
-    private float zOffset = -5f;
+    private float yOffset = -1.5f;
+    private float zOffset = -4f;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +18,6 @@ public class TestController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.position = new Vector3(player.position.x, player.position.y + yOffset, player.position.z + zOffset);
+        transform.position = new Vector3(player.position.x, yOffset, player.position.z + zOffset);
     }
 }
