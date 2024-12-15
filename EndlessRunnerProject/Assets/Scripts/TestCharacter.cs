@@ -5,7 +5,7 @@ using UnityEngine;
 public class TestCharacter : MonoBehaviour
 {
     public float movementSpeed = 10f;   // Speed at which the character moves
-    public float jumpForce = 5f;        // Jump force magnitude
+    public float jumpForce = 15f;        // Jump force magnitude
     public float forwardSpeed = 5f;     // Constant forward speed (vertical movement)
     public SpawnManager spawnManager;   // Reference to the SpawnManager
 

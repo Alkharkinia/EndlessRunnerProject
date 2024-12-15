@@ -7,6 +7,7 @@ TagManager:
   - SpawnTrigger
   - Ground
   - CinemachineTarget
+  - Plot
   layers:
   - Default
   - TransparentFX

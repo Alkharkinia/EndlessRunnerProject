@@ -24,7 +24,7 @@ public class PlotSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SpawnPlot()
@@ -36,7 +36,7 @@ public class PlotSpawner : MonoBehaviour
         float zPos = lastZPos + plotSize;
 
         Instantiate(plotLeft, new Vector3(xPosLeft, -3f, zPos), plotLeft.transform.rotation);
-        Instantiate(plotRight, new Vector3(xPosRight, -3f, zPos),  Quaternion.Euler(0, 90, 0));
+        Instantiate(plotRight, new Vector3(xPosRight, -3f, zPos), Quaternion.Euler(0, 90, 0));
 
         lastZPos += plotSize;
     }
