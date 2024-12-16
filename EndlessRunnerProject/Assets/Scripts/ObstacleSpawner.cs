@@ -5,10 +5,9 @@ using UnityEngine;
 public class ObstacleSpawner : MonoBehaviour
 {
     private int initAmount = 30;
-    private float plotSize = 9.6f;
-    private float xPosLeft = -3.9f;
-    private float xPosRight = 3.9f;
-    private float lastZPos = 15.6f;
+    private float plotSize = 10.3f;
+    private float xPos = 0f;
+    private float lastZPos = 4.3f;
 
     public List<GameObject> obstacles;
 
@@ -31,13 +30,11 @@ public class ObstacleSpawner : MonoBehaviour
     {
         int rand = Random.Range(0, obstacles.Count);
         int rand2 = Random.Range(0, obstacles.Count);
-        GameObject plotLeft = obstacles[rand];
-        GameObject plotRight = obstacles[rand2];
+        GameObject plotObstacles = obstacles[rand];
 
         float zPos = lastZPos + plotSize;
 
-        Instantiate(plotLeft, new Vector3(xPosLeft, -3.1f, zPos), plotLeft.transform.rotation);
-        Instantiate(plotRight, new Vector3(xPosRight, -3.1f, zPos), plotRight.transform.rotation);
+        Instantiate(plotObstacles, new Vector3(xPos, -3.1f, zPos), plotObstacles.transform.rotation);
 
         lastZPos += plotSize;
     }
