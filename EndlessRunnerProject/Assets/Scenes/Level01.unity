@@ -1426,6 +1426,10 @@ MonoBehaviour:
   obstacles:
   - {fileID: 7377829280416488408, guid: 3853c8cfca1cbe34181c8350bf03cbe5, type: 3}
   - {fileID: 7377829280416488408, guid: a35e42dda03ae7a46b72352c3462616b, type: 3}
+  - {fileID: 7377829280416488408, guid: 4e542e89b73cee44fbd068495a984ae7, type: 3}
+  - {fileID: 7377829280416488408, guid: f7463dcab7d2bd3478577a79fdc382fc, type: 3}
+  - {fileID: 7377829280416488408, guid: 2ec1141d70d17d048a82be8a4f5892de, type: 3}
+  - {fileID: 7377829280416488408, guid: 70013cabb6ab58443b7f6d83e1fd3666, type: 3}
 --- !u!1001 &2068641339
 PrefabInstance:
   m_ObjectHideFlags: 0
