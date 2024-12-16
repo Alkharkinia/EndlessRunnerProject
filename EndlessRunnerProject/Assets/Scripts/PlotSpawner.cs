@@ -30,8 +30,9 @@ public class PlotSpawner : MonoBehaviour
     public void SpawnPlot()
     {
         int rand = Random.Range(0, plots.Count);
+        int rand2 = Random.Range(0, plots.Count);
         GameObject plotLeft = plots[rand];
-        GameObject plotRight = plots[rand];
+        GameObject plotRight = plots[rand2];
 
         float zPos = lastZPos + plotSize;
 
