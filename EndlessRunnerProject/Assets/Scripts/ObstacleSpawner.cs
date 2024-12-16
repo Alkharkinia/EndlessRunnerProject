@@ -5,10 +5,10 @@ using UnityEngine;
 public class ObstacleSpawner : MonoBehaviour
 {
     private int initAmount = 30;
-    private float plotSize = 12f;
+    private float plotSize = 9.6f;
     private float xPosLeft = -3.9f;
     private float xPosRight = 3.9f;
-    private float lastZPos = 20f;
+    private float lastZPos = 15.6f;
 
     public List<GameObject> obstacles;
 
