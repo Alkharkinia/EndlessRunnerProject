@@ -1,9 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+
 
 public class TestCharacter : MonoBehaviour
 {
+
+    public  TMP_Text  scoreDisplay;
+    public int disRun;
+    public bool addingDis=false;
+
+
     public float movementSpeed = 10f;   // Speed at which the character moves
     public float jumpForce = 10f;        // Jump force magnitude
     public float forwardSpeed = 5f;     // Constant forward speed (vertical movement)
@@ -27,6 +37,11 @@ public class TestCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+if(addingDis==false){
+            addingDis=true;
+            StartCoroutine(AddingDis());
+        }
+
         HandleMovement();
         HandleJump();
         HandleStrafing();
@@ -104,4 +119,11 @@ public class TestCharacter : MonoBehaviour
         // Notify the spawn manager when a trigger is entered
         spawnManager.SpawnTriggerEntered();
     }
+ IEnumerator AddingDis(){
+        disRun += 1;
+        scoreDisplay.text = "" + disRun;
+        yield return new WaitForSeconds(0.25f);
+        addingDis=false;
+    }
+
 }
