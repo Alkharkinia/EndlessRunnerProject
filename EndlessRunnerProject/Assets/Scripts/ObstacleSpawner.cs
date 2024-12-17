@@ -34,7 +34,10 @@ public class ObstacleSpawner : MonoBehaviour
 
         float zPos = lastZPos + plotSize;
 
-        Instantiate(plotObstacles, new Vector3(xPos, -3.1f, zPos), plotObstacles.transform.rotation);
+        GameObject spawnedObstacle = Instantiate(plotObstacles, new Vector3(xPos, -3.1f, zPos), plotObstacles.transform.rotation);
+
+       spawnedObstacle.tag = "Obstacle";
+       
 
         lastZPos += plotSize;
     }

@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - CinemachineTarget
   - Plot
+  - Obstacle
   layers:
   - Default
   - TransparentFX

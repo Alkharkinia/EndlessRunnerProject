@@ -120,6 +120,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrel1_LOD
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010455766620, guid: 1c5a9772a26e4b74991250d48f83f849, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 4000012345957466, guid: 1c5a9772a26e4b74991250d48f83f849, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -190,6 +194,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrel1_LOD (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010455766620, guid: 1c5a9772a26e4b74991250d48f83f849, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 4000012345957466, guid: 1c5a9772a26e4b74991250d48f83f849, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -259,6 +267,10 @@ PrefabInstance:
     - target: {fileID: 1000010455766620, guid: 1c5a9772a26e4b74991250d48f83f849, type: 3}
       propertyPath: m_Name
       value: Barrel1_LOD (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010455766620, guid: 1c5a9772a26e4b74991250d48f83f849, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4000012345957466, guid: 1c5a9772a26e4b74991250d48f83f849, type: 3}
       propertyPath: m_LocalScale.x

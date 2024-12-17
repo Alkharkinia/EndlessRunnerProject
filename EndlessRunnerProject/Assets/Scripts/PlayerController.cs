@@ -93,6 +93,28 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+           
         }
+if (collision.gameObject.CompareTag("Obstacle"))
+    {
+        Debug.Log("Collision with obstacle detected!");
+
+        // Play falling animation
+        animator.SetTrigger("Fall");
+
+        // Stop player movement
+        forwardSpeed = 0f;
+        strafeSpeed = 0f;
+
+        // Freeze Rigidbody movement
+        rb.velocity = Vector3.zero;
+        rb.isKinematic = true;
+        
+
+        // Disable further input
+        enabled = false;
+    }
+
+
     }
 }

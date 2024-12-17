@@ -1466,6 +1466,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ObstaclePlot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 747110860873188994, guid: cec4a588c75f2a041a6a654972fa9b88, type: 3}
+      propertyPath: m_TagString
+      value: Plot
+      objectReference: {fileID: 0}
     - target: {fileID: 6369009009073961913, guid: cec4a588c75f2a041a6a654972fa9b88, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2267,6 +2271,10 @@ PrefabInstance:
     - target: {fileID: 747110860873188994, guid: cec4a588c75f2a041a6a654972fa9b88, type: 3}
       propertyPath: m_Name
       value: ObstaclePlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 747110860873188994, guid: cec4a588c75f2a041a6a654972fa9b88, type: 3}
+      propertyPath: m_TagString
+      value: Plot
       objectReference: {fileID: 0}
     - target: {fileID: 6369009009073961913, guid: cec4a588c75f2a041a6a654972fa9b88, type: 3}
       propertyPath: m_LocalPosition.x

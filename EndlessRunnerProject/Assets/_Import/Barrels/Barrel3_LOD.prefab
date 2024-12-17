@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 205000011825512236}
   m_Layer: 0
   m_Name: Barrel3_LOD
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
