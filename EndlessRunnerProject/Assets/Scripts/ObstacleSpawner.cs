@@ -29,14 +29,11 @@ public class ObstacleSpawner : MonoBehaviour
     public void SpawnObstacle()
     {
         int rand = Random.Range(0, obstacles.Count);
-        int rand2 = Random.Range(0, obstacles.Count);
         GameObject plotObstacles = obstacles[rand];
 
         float zPos = lastZPos + plotSize;
 
         GameObject spawnedObstacle = Instantiate(plotObstacles, new Vector3(xPos, -3.1f, zPos), plotObstacles.transform.rotation);
-
-       spawnedObstacle.tag = "Obstacle";
        
 
         lastZPos += plotSize;

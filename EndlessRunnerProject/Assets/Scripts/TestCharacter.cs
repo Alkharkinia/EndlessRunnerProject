@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -13,38 +14,56 @@ public class TestCharacter : MonoBehaviour
     public int disRun;
     public bool addingDis=false;
 
-
     public float movementSpeed = 10f;   // Speed at which the character moves
     public float jumpForce = 10f;        // Jump force magnitude
     public float forwardSpeed = 5f;     // Constant forward speed (vertical movement)
     public SpawnManager spawnManager;   // Reference to the SpawnManager
 
+    private Transform playerTransform;
+    public GameObject enemyPrefab;
+
     private Rigidbody rb;               // Reference to the Rigidbody component
     private Animator animator;          // Reference to the Animator component
     private bool isGrounded = true;
+    private bool isGameOver = false;
 
     // Animator Parameters
     private bool isStrafingRight = false;
     private bool isStrafingLeft = false;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();      // Get the Rigidbody component
         animator = GetComponent<Animator>(); // Get the Animator component
+
+        GameObject player = GameObject.FindWithTag("Player");
+
+        if (player != null)
+        {
+            playerTransform = player.transform;
+        }
+        else
+        {
+            Debug.LogError("Player GameObject with tag 'Player' not found. Ensure the player has the correct tag.");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-if(addingDis==false){
+        if(!addingDis && !isGameOver){
             addingDis=true;
             StartCoroutine(AddingDis());
         }
 
-        HandleMovement();
-        HandleJump();
-        HandleStrafing();
+        if (!isGameOver)
+        {
+            HandleMovement();
+            HandleJump();
+            HandleStrafing();
+        }
     }
 
     void HandleMovement()
@@ -114,11 +133,75 @@ if(addingDis==false){
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            isGameOver = true;
+            gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            gameObject.GetComponent<TestCharacter>().forwardSpeed = 0f;
+            animator.SetBool("Collision", true); 
+
+            SpawnEnemies();
+
+            
+        }
+    }
+
+    private void SpawnEnemies()
+    {
+        // Calculate spawn points relative to the player's position
+        Vector3 playerPosition = playerTransform.position;
+        Vector3 leftSpawnPoint = playerPosition + new Vector3(-1f, 0f, -10f); // 10 units to the left of the player
+        Vector3 rightSpawnPoint = playerPosition + new Vector3(1f, 0f, -10f); // 10 units to the right of the player
+
+        // Spawn enemies
+        GameObject enemyLeft = Instantiate(enemyPrefab, leftSpawnPoint, Quaternion.identity);
+        GameObject enemyRight = Instantiate(enemyPrefab, rightSpawnPoint, Quaternion.identity);
+
+        StartCoroutine(MoveEnemy(enemyLeft, playerTransform, -1f)); // Move slightly left of the player
+        StartCoroutine(MoveEnemy(enemyRight, playerTransform, 1f));  // Move slightly right of the player
+    }
+
+    private IEnumerator MoveEnemy(GameObject enemy, Transform player, float xOffset)
+    {
+        float duration = 1.5f; // Time to move the enemy
+        float elapsed = 0f;
+        Vector3 startPosition = enemy.transform.position;
+
+        Vector3 targetPosition = new Vector3(player.position.x + xOffset, enemy.transform.position.y, player.position.z - 0.5f);
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime; // Use unscaled time
+            enemy.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsed / duration);
+            yield return null;
+        }
+
+        if (elapsed >= duration)
+        {
+            // Set the "hasArrived" flag to true to trigger the next animation
+            Animator animator = enemy.GetComponent<Animator>(); // Get the Animator component
+            if (animator != null)
+            {
+                animator.SetBool("hasArrived", true); // Trigger the animation change
+                yield return new WaitForSeconds(2.5f);
+
+                SceneManager.LoadScene("GameOverScreen");
+            }
+
+        }
+
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         // Notify the spawn manager when a trigger is entered
         spawnManager.SpawnTriggerEntered();
+
     }
+
  IEnumerator AddingDis(){
         disRun += 1;
         scoreDisplay.text = "" + disRun;

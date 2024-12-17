@@ -27,7 +27,7 @@ public class PlotRemover : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Check if the object that collided with the trigger has the "Plot" tag
-        if (other.CompareTag("Plot"))
+        if (other.CompareTag("Plot") || other.CompareTag("Obstacle"))
         {
             // Destroy the plot object
             Destroy(other.gameObject);
