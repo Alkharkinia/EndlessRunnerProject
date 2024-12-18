@@ -7,9 +7,10 @@ using TMPro;
 
 
 
+
 public class TestCharacter : MonoBehaviour
 {
-
+    public AudioSource coinSFX;
     public  TMP_Text  scoreDisplay;
     public int disRun;
     public bool addingDis=false;
@@ -255,6 +256,8 @@ public class TestCharacter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
+        
         if (other.CompareTag("SpawnTrigger"))
         {
             spawnManager.SpawnTriggerEntered();
@@ -263,9 +266,11 @@ public class TestCharacter : MonoBehaviour
         
         if (other.transform.tag == "Coin")
         {
+            
             Coins++;
             coinText.text = "Coin: " + Coins.ToString();
             Destroy(other.gameObject);
+             coinSFX.Play();
         }
 
     }
