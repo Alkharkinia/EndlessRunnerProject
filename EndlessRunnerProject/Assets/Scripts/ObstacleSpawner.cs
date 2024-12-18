@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    private int initAmount = 30;
+    private int initAmount = 50;
     private float plotSize = 10.3f;
     private float xPos = 0f;
     private float lastZPos = 4.3f;

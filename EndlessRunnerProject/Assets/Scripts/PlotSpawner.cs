@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlotSpawner : MonoBehaviour
 {
-    private int initAmount = 30;
+    private int initAmount = 50;
     private float plotSize = 20f;
     private float xPosLeft = -31.95f;
     private float xPosRight = 31.95f;

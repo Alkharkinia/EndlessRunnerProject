@@ -16,7 +16,7 @@ public class TestCharacter : MonoBehaviour
     public bool addingDis=false;
 
     public float movementSpeed = 10f;   // Speed at which the character moves
-    public float jumpForce = 10f;        // Jump force magnitude
+    public float jumpForce = 0f;        // Jump force magnitude
     public float forwardSpeed = 5f;     // Constant forward speed (vertical movement)
     public SpawnManager spawnManager;   // Reference to the SpawnManager
 
@@ -30,16 +30,13 @@ public class TestCharacter : MonoBehaviour
 
     private Rigidbody rb;               // Reference to the Rigidbody component
     private Animator animator;          // Reference to the Animator component
-    private bool isGrounded = true;
 
-    public float survivalTime = 120f;
-    public float gameTime = 0f;
+    private bool isGrounded;
+
+    private float survivalTime = 120f;
+    private float gameTime = 0f;
     private bool isGameOver = false;
     private bool victoryTriggered = false;
-
-    // Animator Parameters
-    private bool isStrafingRight = false;
-    private bool isStrafingLeft = false;
 
 
     // Start is called before the first frame update
@@ -69,7 +66,7 @@ public class TestCharacter : MonoBehaviour
         if (!isGameOver && !victoryTriggered)
         {
             gameTime += Time.deltaTime;
-            Debug.Log(gameTime);
+            //Debug.Log(gameTime);
 
             // Check if the player survived for the required time
             if (gameTime >= survivalTime)
@@ -110,7 +107,26 @@ public class TestCharacter : MonoBehaviour
 
         yield return new WaitForSeconds(2.5f);
 
-        SceneManager.LoadScene("Level01Complete");
+        if (SceneManager.GetActiveScene().name == "Level01")
+        {
+            SceneManager.LoadScene("Level01Complete");
+        }
+        else if (SceneManager.GetActiveScene().name == "Level02")
+        {
+            SceneManager.LoadScene("Level02Complete");
+        }
+        else if (SceneManager.GetActiveScene().name == "Level03")
+        {
+            SceneManager.LoadScene("Level03Complete");
+        }
+        else if (SceneManager.GetActiveScene().name == "LevelEndless")
+        {
+            SceneManager.LoadScene("LevelEndlessComplete");
+        }
+        else
+        {
+            Debug.LogError("No Valid Scene to Load.");
+        }
     }
 
     void HandleMovement()
@@ -132,18 +148,12 @@ public class TestCharacter : MonoBehaviour
         {
             // Apply upward force for jumping
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            //Debug.Log("Player Jumped.");
 
             // Set the Animator trigger for the jump animation
             animator.SetTrigger("Jump");
 
-            isGrounded = false;
-
         }
-
-        if (transform.position.y < -2.998f) { 
-
-            isGrounded = true;
-    }
 
     }
 
@@ -152,30 +162,24 @@ public class TestCharacter : MonoBehaviour
         // Right Strafe
         if (Input.GetKeyDown(KeyCode.D)) // Replace 'D' with your desired key
         {
-            isStrafingRight = true;
-            isStrafingLeft = false;
 
             animator.SetBool("StrafeRight", true);
             animator.SetBool("StrafeLeft", false);
         }
         else if (Input.GetKeyUp(KeyCode.D))
         {
-            isStrafingRight = false;
             animator.SetBool("StrafeRight", false);
         }
 
         // Left Strafe
         if (Input.GetKeyDown(KeyCode.A)) // Replace 'A' with your desired key
         {
-            isStrafingLeft = true;
-            isStrafingRight = false;
 
             animator.SetBool("StrafeLeft", true);
             animator.SetBool("StrafeRight", false);
         }
         else if (Input.GetKeyUp(KeyCode.A))
         {
-            isStrafingLeft = false;
             animator.SetBool("StrafeLeft", false);
         }
     }
@@ -196,12 +200,28 @@ public class TestCharacter : MonoBehaviour
         }
     }
 
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground")) // Assuming the ground has the "Ground" tag
+        {
+            isGrounded = true;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
+
     private void SpawnEnemies()
     {
         // Calculate spawn points relative to the player's position
         Vector3 playerPosition = playerTransform.position;
-        Vector3 leftSpawnPoint = playerPosition + new Vector3(-1f, 0f, -10f); // 10 units to the left of the player
-        Vector3 rightSpawnPoint = playerPosition + new Vector3(1f, 0f, -10f); // 10 units to the right of the player
+        Vector3 leftSpawnPoint = new Vector3(-1f + playerPosition.x, -3f, -10f + playerPosition.z); // 10 units to the left of the player
+        Vector3 rightSpawnPoint = new Vector3(1f + playerPosition.x, -3f, -10f + playerPosition.z); // 10 units to the right of the player
 
         // Spawn enemies
         GameObject enemyLeft = Instantiate(enemyPrefab, leftSpawnPoint, Quaternion.identity);
@@ -235,7 +255,28 @@ public class TestCharacter : MonoBehaviour
                 animator.SetBool("hasArrived", true); // Trigger the animation change
                 yield return new WaitForSeconds(2.5f);
 
-                SceneManager.LoadScene("GameOverScreen");
+                if (SceneManager.GetActiveScene().name == "Level01")
+                {
+                    SceneManager.LoadScene("GameOverScreen01");
+                }
+                else if (SceneManager.GetActiveScene().name == "Level02")
+                {
+                    SceneManager.LoadScene("GameOverScreen02");
+                }
+                else if (SceneManager.GetActiveScene().name == "Level03")
+                {
+                    SceneManager.LoadScene("GameOverScreen03");
+                }
+                else if (SceneManager.GetActiveScene().name == "LevelEndless")
+                {
+                    SceneManager.LoadScene("GameOverScreen03");
+                }
+                else
+                {
+                    Debug.LogError("No Valid Scene to Load.");
+                }
+
+
             }
 
         }
