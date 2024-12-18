@@ -523,6 +523,8 @@ MonoBehaviour:
   distanceTextTMP: {fileID: 529109591}
   coinText: {fileID: 806879568}
   enemyPrefab: {fileID: 1997595370}
+  survivalTime: 120
+  gameTime: 0
 --- !u!4 &420354817 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1438546959266459337, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
