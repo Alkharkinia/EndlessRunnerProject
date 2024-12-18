@@ -68,6 +68,7 @@ public class TestCharacter : MonoBehaviour
         if (!isGameOver && !victoryTriggered)
         {
             gameTime += Time.deltaTime;
+            Debug.Log(gameTime);
 
             // Check if the player survived for the required time
             if (gameTime >= survivalTime)
