@@ -9,6 +9,7 @@ TagManager:
   - CinemachineTarget
   - Plot
   - Obstacle
+  - Coin
   layers:
   - Default
   - TransparentFX

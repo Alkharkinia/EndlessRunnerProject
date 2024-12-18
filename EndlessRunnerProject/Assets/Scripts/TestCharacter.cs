@@ -19,6 +19,11 @@ public class TestCharacter : MonoBehaviour
     public float forwardSpeed = 5f;     // Constant forward speed (vertical movement)
     public SpawnManager spawnManager;   // Reference to the SpawnManager
 
+    public int Coins = 0;
+    private float startingZ;
+    public TextMeshProUGUI distanceTextTMP; // For TextMeshPro UI 
+    public TextMeshProUGUI coinText;
+
     private Transform playerTransform;
     public GameObject enemyPrefab;
 
@@ -48,6 +53,8 @@ public class TestCharacter : MonoBehaviour
         {
             Debug.LogError("Player GameObject with tag 'Player' not found. Ensure the player has the correct tag.");
         }
+
+        startingZ = playerTransform.position.z;
     }
 
     // Update is called once per frame
@@ -63,6 +70,7 @@ public class TestCharacter : MonoBehaviour
             HandleMovement();
             HandleJump();
             HandleStrafing();
+            UpdateDistanceUI();
         }
     }
 
@@ -195,14 +203,36 @@ public class TestCharacter : MonoBehaviour
 
     }
 
+    private void UpdateDistanceUI()
+    {
+        if (playerTransform != null)
+        {
+            // Calculate the Z-axis distance from the starting position
+            int distance = Mathf.Abs((int)playerTransform.position.z - (int)startingZ);
+
+            if (distanceTextTMP != null)
+                distanceTextTMP.text = $"Distance: {distance}m";
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        // Notify the spawn manager when a trigger is entered
-        spawnManager.SpawnTriggerEntered();
+        if (other.CompareTag("SpawnTrigger"))
+        {
+            spawnManager.SpawnTriggerEntered();
+
+        }
+        
+        if (other.transform.tag == "Coin")
+        {
+            Coins++;
+            coinText.text = "Coin: " + Coins.ToString();
+            Destroy(other.gameObject);
+        }
 
     }
 
- IEnumerator AddingDis(){
+    IEnumerator AddingDis(){
         disRun += 1;
         scoreDisplay.text = "" + disRun;
         yield return new WaitForSeconds(0.25f);
