@@ -30,7 +30,11 @@ public class TestCharacter : MonoBehaviour
     private Rigidbody rb;               // Reference to the Rigidbody component
     private Animator animator;          // Reference to the Animator component
     private bool isGrounded = true;
+
+    public float survivalTime = 120f;
+    public float gameTime = 0f;
     private bool isGameOver = false;
+    private bool victoryTriggered = false;
 
     // Animator Parameters
     private bool isStrafingRight = false;
@@ -60,18 +64,51 @@ public class TestCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!addingDis && !isGameOver){
+
+        if (!isGameOver && !victoryTriggered)
+        {
+            gameTime += Time.deltaTime;
+
+            // Check if the player survived for the required time
+            if (gameTime >= survivalTime)
+            {
+                StartCoroutine(TriggerVictoryAnimation());
+            }
+        }
+
+        if (!addingDis && !isGameOver && !victoryTriggered)
+        {
             addingDis=true;
             StartCoroutine(AddingDis());
         }
 
-        if (!isGameOver)
+        if (!isGameOver && !victoryTriggered)
         {
             HandleMovement();
             HandleJump();
             HandleStrafing();
             UpdateDistanceUI();
         }
+    }
+
+    IEnumerator TriggerVictoryAnimation()
+    {
+        if (animator != null)
+        {
+            victoryTriggered = true; // Ensure this happens only once
+            gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            gameObject.GetComponent<TestCharacter>().forwardSpeed = 0f;
+            animator.SetBool("hasWon", true); // Trigger the victory animation
+            Debug.Log("Victory animation played!");
+        }
+        else
+        {
+            Debug.LogWarning("Player Animator is not assigned!");
+        }
+
+        yield return new WaitForSeconds(2.5f);
+
+        SceneManager.LoadScene("Level01Complete");
     }
 
     void HandleMovement()
