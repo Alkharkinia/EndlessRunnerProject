@@ -28,10 +28,19 @@ public class TestCharacter : MonoBehaviour
     private Transform playerTransform;
     public GameObject enemyPrefab;
 
+    private int playerLayer = 6; // Default player layer
+    private int obstacleLayer = 7; // Layer for obstacles
+    public GameObject invincibilityGlow;  // Reference to the light object that indicates invincibility
+    public GameObject invincibilityObject;
+
+    public TMP_Text countdownText;
+    public float invincibilityDuration = 10f;  // Duration for invincibility (in seconds)
+
     private Rigidbody rb;               // Reference to the Rigidbody component
     private Animator animator;          // Reference to the Animator component
 
     private bool isGrounded;
+    private bool isInvincible = false;
 
     private float survivalTime = 120f;
     private float gameTime = 0f;
@@ -44,6 +53,10 @@ public class TestCharacter : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();      // Get the Rigidbody component
         animator = GetComponent<Animator>(); // Get the Animator component
+
+        invincibilityGlow.SetActive(false);
+        invincibilityObject.SetActive(false);
+
 
         GameObject player = GameObject.FindWithTag("Player");
 
@@ -87,6 +100,11 @@ public class TestCharacter : MonoBehaviour
             HandleJump();
             HandleStrafing();
             UpdateDistanceUI();
+        }
+
+        if (Coins % 50 == 0 && Coins != 0)
+        {
+            StartCoroutine(Invincibility());
         }
     }
 
@@ -314,6 +332,46 @@ public class TestCharacter : MonoBehaviour
              coinSFX.Play();
         }
 
+    }
+
+    IEnumerator Invincibility()
+    {
+        isInvincible = true;
+
+        Physics.IgnoreLayerCollision(playerLayer, obstacleLayer, true);
+
+        invincibilityGlow.SetActive(true);
+        invincibilityObject.SetActive(true);
+
+        StartCoroutine(InvincibilityCountdown());
+
+        // Wait for invincibility duration
+        yield return new WaitForSeconds(10f);
+
+        // End invincibility
+        isInvincible = false;
+
+        Physics.IgnoreLayerCollision(playerLayer, obstacleLayer, false);
+
+        invincibilityGlow.SetActive(false);
+    }
+
+    private IEnumerator InvincibilityCountdown()
+    {
+        float timeRemaining = invincibilityDuration;
+        
+
+        while (timeRemaining > 0)
+        {
+            // Update the countdown text every frame with an integer value
+            countdownText.text = "Invincibility Activated: " + Mathf.RoundToInt(timeRemaining) + "s";
+            timeRemaining -= Time.deltaTime;
+
+            yield return null; // Wait until the next frame
+        }
+
+        // Once the countdown is over, turn off the light and clear the text
+        invincibilityObject.SetActive(false); // Clear the text when invincibility ends
     }
 
     IEnumerator AddingDis(){

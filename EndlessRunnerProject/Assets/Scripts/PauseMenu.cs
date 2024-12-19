@@ -56,4 +56,9 @@ public class PauseMenu : MonoBehaviour
         Cursor.visible = true;
     }
 
+    public void resetTime()
+    {
+        Time.timeScale = 1f;
+    }
+
 }
