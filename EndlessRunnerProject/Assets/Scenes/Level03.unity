@@ -5006,14 +5006,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plots:
-  - {fileID: 4390304685209141723, guid: e3a3ed32a51f9cd4f94e1a113e86b833, type: 3}
-  - {fileID: 4390304685209141723, guid: a2072631000432249b0b14487927e512, type: 3}
-  - {fileID: 4390304685209141723, guid: df89e1f420ed9064f961ab1fe2ff99e9, type: 3}
-  - {fileID: 4390304685209141723, guid: c6fc2c626963a8941994453165103575, type: 3}
-  - {fileID: 4390304685209141723, guid: a4c20ed49b2579d4a931f895adb0b555, type: 3}
-  - {fileID: 4390304685209141723, guid: bd0d731f62ecba846926aedc499cb18d, type: 3}
-  - {fileID: 4390304685209141723, guid: d411e5225378054458d55acad8a7d14d, type: 3}
-  - {fileID: 4390304685209141723, guid: 4da244c48baf3dc429ee19751ca38c4d, type: 3}
+  - {fileID: 4390304685209141723, guid: 56272b3cb383b604fa56af813a3f8ca3, type: 3}
+  - {fileID: 4390304685209141723, guid: 2a047ff7bfd78354a9900e4a65d0ce9d, type: 3}
+  - {fileID: 4390304685209141723, guid: 7dc6c199f2a05ae48a39dd0f4b7ae373, type: 3}
+  - {fileID: 4390304685209141723, guid: 5637d54548152cb488e9ed852cdf3339, type: 3}
 --- !u!114 &1975179794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5027,15 +5023,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacles:
-  - {fileID: 747110860873188994, guid: cec4a588c75f2a041a6a654972fa9b88, type: 3}
-  - {fileID: 747110860873188994, guid: 85aeac924b46a4b40a28daf6e6547362, type: 3}
-  - {fileID: 747110860873188994, guid: 9054e5b32913ed444887a05ad2350540, type: 3}
-  - {fileID: 7377829280416488408, guid: 2ec1141d70d17d048a82be8a4f5892de, type: 3}
-  - {fileID: 7377829280416488408, guid: f7463dcab7d2bd3478577a79fdc382fc, type: 3}
-  - {fileID: 7377829280416488408, guid: 70013cabb6ab58443b7f6d83e1fd3666, type: 3}
-  - {fileID: 7377829280416488408, guid: b2e1a9fa98bf2824fa8e5d4fa4aea429, type: 3}
-  - {fileID: 7377829280416488408, guid: a35e42dda03ae7a46b72352c3462616b, type: 3}
-  - {fileID: 747110860873188994, guid: 9c7c05aaf46407049b7c4af0c3c6191f, type: 3}
+  - {fileID: 747110860873188994, guid: 0f48548fbe17f174db934e730e53d999, type: 3}
+  - {fileID: 747110860873188994, guid: 4383aa050c8dbaf4f89552080cb8716b, type: 3}
+  - {fileID: 747110860873188994, guid: 9015edd37fd396c48927279c246fd2c7, type: 3}
 --- !u!1 &1997595370 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 43e1866cc88379a408c46f3246dda6f8, type: 3}
