@@ -238,8 +238,8 @@ public class TestCharacter : MonoBehaviour
     {
         // Calculate spawn points relative to the player's position
         Vector3 playerPosition = playerTransform.position;
-        Vector3 leftSpawnPoint = new Vector3(-1f + playerPosition.x, -3f, -10f + playerPosition.z); // 10 units to the left of the player
-        Vector3 rightSpawnPoint = new Vector3(1f + playerPosition.x, -3f, -10f + playerPosition.z); // 10 units to the right of the player
+        Vector3 leftSpawnPoint = new Vector3(-1f + playerPosition.x, -3f, -20f + playerPosition.z); // 10 units to the left of the player
+        Vector3 rightSpawnPoint = new Vector3(1f + playerPosition.x, -3f, -20f + playerPosition.z); // 10 units to the right of the player
 
         // Spawn enemies
         GameObject enemyLeft = Instantiate(enemyPrefab, leftSpawnPoint, Quaternion.identity);
@@ -251,11 +251,11 @@ public class TestCharacter : MonoBehaviour
 
     private IEnumerator MoveEnemy(GameObject enemy, Transform player, float xOffset)
     {
-        float duration = 1.5f; // Time to move the enemy
+        float duration = 2.5f; // Time to move the enemy
         float elapsed = 0f;
         Vector3 startPosition = enemy.transform.position;
 
-        Vector3 targetPosition = new Vector3(player.position.x + xOffset, enemy.transform.position.y, player.position.z - 0.5f);
+        Vector3 targetPosition = new Vector3(player.position.x + xOffset, enemy.transform.position.y, player.position.z - 2.5f);
 
         while (elapsed < duration)
         {

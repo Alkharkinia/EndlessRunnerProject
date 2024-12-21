@@ -7,7 +7,7 @@ public class TestController : MonoBehaviour
     private Transform player;
 
     private float yOffset = -1.5f;
-    private float zOffset = -4f;
+    private float zOffset = -4.5f;
 
     // Start is called before the first frame update
     void Start()
