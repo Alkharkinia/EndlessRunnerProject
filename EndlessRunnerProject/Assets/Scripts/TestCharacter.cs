@@ -11,9 +11,9 @@ using TMPro;
 public class TestCharacter : MonoBehaviour
 {
     public AudioSource coinSFX;
-    public  TMP_Text  scoreDisplay;
+    public TMP_Text scoreDisplay;
     public int disRun;
-    public bool addingDis=false;
+    public bool addingDis = false;
 
     public float movementSpeed = 10f;   // Speed at which the character moves
     public float jumpForce = 0f;        // Jump force magnitude
@@ -42,10 +42,12 @@ public class TestCharacter : MonoBehaviour
     private bool isGrounded;
     private bool isInvincible = false;
 
-    private float survivalTime = 120f;
+    private float survivalTime = 150f;
     private float gameTime = 0f;
     private bool isGameOver = false;
     private bool victoryTriggered = false;
+
+    private int phase = 1; // Phase indicator (1 = Phase 1, 2 = Phase 2, 3 = Phase 3)
 
 
     // Start is called before the first frame update
@@ -70,6 +72,12 @@ public class TestCharacter : MonoBehaviour
         }
 
         startingZ = playerTransform.position.z;
+
+        // Load the score from PlayerPrefs
+        if (PlayerPrefs.HasKey("HighScore"))
+        {
+            scoreDisplay.text = "Score: " + PlayerPrefs.GetInt("HighScore").ToString();
+        }
     }
 
     // Update is called once per frame
@@ -90,7 +98,7 @@ public class TestCharacter : MonoBehaviour
 
         if (!addingDis && !isGameOver && !victoryTriggered)
         {
-            addingDis=true;
+            addingDis = true;
             StartCoroutine(AddingDis());
         }
 
@@ -116,14 +124,15 @@ public class TestCharacter : MonoBehaviour
             gameObject.GetComponent<Rigidbody>().isKinematic = true;
             gameObject.GetComponent<TestCharacter>().forwardSpeed = 0f;
             animator.SetBool("hasWon", true); // Trigger the victory animation
-            Debug.Log("Victory animation played!");
+            SpawnEnemies();
         }
         else
         {
             Debug.LogWarning("Player Animator is not assigned!");
         }
 
-        yield return new WaitForSeconds(2.5f);
+        animator.SetBool("enemyHasDied", true);
+        yield return new WaitForSeconds(10f);
 
         if (SceneManager.GetActiveScene().name == "Level01")
         {
@@ -210,11 +219,11 @@ public class TestCharacter : MonoBehaviour
             isGameOver = true;
             gameObject.GetComponent<Rigidbody>().isKinematic = true;
             gameObject.GetComponent<TestCharacter>().forwardSpeed = 0f;
-            animator.SetBool("Collision", true); 
+            animator.SetBool("Collision", true);
 
             SpawnEnemies();
 
-            
+
         }
     }
 
@@ -251,7 +260,7 @@ public class TestCharacter : MonoBehaviour
 
     private IEnumerator MoveEnemy(GameObject enemy, Transform player, float xOffset)
     {
-        float duration = 2.5f; // Time to move the enemy
+        float duration = 1.5f; // Time to move the enemy
         float elapsed = 0f;
         Vector3 startPosition = enemy.transform.position;
 
@@ -264,7 +273,7 @@ public class TestCharacter : MonoBehaviour
             yield return null;
         }
 
-        if (elapsed >= duration)
+        if (elapsed >= duration && !victoryTriggered)
         {
             // Set the "hasArrived" flag to true to trigger the next animation
             Animator animator = enemy.GetComponent<Animator>(); // Get the Animator component
@@ -298,6 +307,16 @@ public class TestCharacter : MonoBehaviour
             }
 
         }
+        else
+        {
+            Animator animator = enemy.GetComponent<Animator>();
+
+            animator.SetBool("hasLost", true); // Trigger the animation change
+            yield return new WaitForSeconds(8f);
+
+
+
+        }
 
     }
 
@@ -316,20 +335,20 @@ public class TestCharacter : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        
+
         if (other.CompareTag("SpawnTrigger"))
         {
             spawnManager.SpawnTriggerEntered();
 
         }
-        
+
         if (other.transform.tag == "Coin")
         {
-            
+
             Coins++;
             coinText.text = "Coin: " + Coins.ToString();
             Destroy(other.gameObject);
-             coinSFX.Play();
+            coinSFX.Play();
         }
 
     }
@@ -359,7 +378,7 @@ public class TestCharacter : MonoBehaviour
     private IEnumerator InvincibilityCountdown()
     {
         float timeRemaining = invincibilityDuration;
-        
+
 
         while (timeRemaining > 0)
         {
@@ -374,11 +393,36 @@ public class TestCharacter : MonoBehaviour
         invincibilityObject.SetActive(false); // Clear the text when invincibility ends
     }
 
-    IEnumerator AddingDis(){
+    IEnumerator AddingDis()
+    {
         disRun += 1;
         scoreDisplay.text = "" + disRun;
         yield return new WaitForSeconds(0.25f);
-        addingDis=false;
+        addingDis = false;
+    }
+
+    private void UpdateScore()
+    {
+        int distance = Mathf.Abs((int)playerTransform.position.z - (int)startingZ);
+        int pointsPerMeter = 0;
+
+        // Set points per meter based on the current phase
+        switch (phase)
+        {
+            case 1:
+                pointsPerMeter = 2; // Phase 1: 2 points per meter
+                break;
+            case 2:
+                pointsPerMeter = 5; // Phase 2: 5 points per meter
+                break;
+            case 3:
+                pointsPerMeter = 10; // Phase 3: 10 points per meter
+                break;
+        }
+
+        int score = (distance * pointsPerMeter) + (Coins * 50); // Calculate the score
+        PlayerPrefs.SetInt("HighScore", score); // Save score to PlayerPrefs
+        scoreDisplay.text = "Score: " + score.ToString(); // Update score display
     }
 
 }

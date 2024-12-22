@@ -3419,6 +3419,7 @@ GameObject:
   - component: {fileID: 1467537521}
   - component: {fileID: 1467537523}
   - component: {fileID: 1467537522}
+  - component: {fileID: 1467537524}
   m_Layer: 5
   m_Name: HighscoreText
   m_TagString: Untagged
@@ -3542,6 +3543,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467537520}
   m_CullTransparentMesh: 1
+--- !u!114 &1467537524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467537520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841b25b8b885d5e49a59c55d19b8e121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Score
+  score: 0
 --- !u!1 &1507712854 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7085498512455439755, guid: 3f20a200e52a1fa4d8d7563a75020d6d, type: 3}
@@ -3774,6 +3789,7 @@ GameObject:
   - component: {fileID: 1540627185}
   - component: {fileID: 1540627184}
   - component: {fileID: 1540627187}
+  - component: {fileID: 1540627188}
   m_Layer: 5
   m_Name: HighscoreMenu
   m_TagString: Untagged
@@ -3879,6 +3895,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstSelected: {fileID: 2025373803}
+--- !u!114 &1540627188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540627182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841b25b8b885d5e49a59c55d19b8e121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: HighScore
+  score: 0
 --- !u!1 &1540751792
 GameObject:
   m_ObjectHideFlags: 0

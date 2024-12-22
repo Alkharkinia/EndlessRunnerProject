@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8375938162495163712}
   - component: {fileID: 6837210923667249519}
   - component: {fileID: 4126243639176758623}
+  - component: {fileID: 8238228805615500899}
   m_Layer: 0
   m_Name: LaserTrap
   m_TagString: Untagged
@@ -105,3 +106,24 @@ MonoBehaviour:
   - {x: 50, y: 0, z: 0}
   - {x: 3.57, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
+--- !u!95 &8238228805615500899
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282587795869976734}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c91d74ce25ee8784891776881d00166a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
