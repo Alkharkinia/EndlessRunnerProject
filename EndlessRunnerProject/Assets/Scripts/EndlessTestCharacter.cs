@@ -10,13 +10,14 @@ using TMPro;
 
 public class EndlessTestCharacter : MonoBehaviour
 {
-    public AudioSource coinSFX;
     public TMP_Text scoreDisplay;
 
     public float movementSpeed = 10f;   // Speed at which the character moves
     public float jumpForce = 0f;        // Jump force magnitude
     public float forwardSpeed = 5f;     // Constant forward speed (vertical movement)
     public EndlessSpawnManager spawnManager;   // Reference to the SpawnManager
+
+    LevelAudioManager audioManager;
 
     public int Coins = 0;
     private float startingZ;
@@ -47,6 +48,10 @@ public class EndlessTestCharacter : MonoBehaviour
 
     private int phase = 1; // Phase indicator (1 = Phase 1, 2 = Phase 2, 3 = Phase 3)
 
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<LevelAudioManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -72,6 +77,9 @@ public class EndlessTestCharacter : MonoBehaviour
         startingZ = playerTransform.position.z;
 
         PlayerPrefs.SetInt("Score", 0);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -166,6 +174,8 @@ public class EndlessTestCharacter : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             //Debug.Log("Player Jumped.");
 
+            audioManager.PlaySFX(audioManager.jumpSFX);
+
             // Set the Animator trigger for the jump animation
             animator.SetTrigger("Jump");
 
@@ -209,6 +219,9 @@ public class EndlessTestCharacter : MonoBehaviour
             gameObject.GetComponent<Rigidbody>().isKinematic = true;
             gameObject.GetComponent<EndlessTestCharacter>().forwardSpeed = 0f;
             animator.SetBool("Collision", true);
+            audioManager.PlaySFX(audioManager.collisionSFX);
+
+            audioManager.PlaySFX(audioManager.playerDeathSFX);
 
             SpawnEnemies();
 
@@ -268,6 +281,7 @@ public class EndlessTestCharacter : MonoBehaviour
             Animator animator = enemy.GetComponent<Animator>(); // Get the Animator component
             if (animator != null)
             {
+                audioManager.PlaySFX(audioManager.enemyWinSFX);
                 animator.SetBool("hasArrived", true); // Trigger the animation change
                 yield return new WaitForSeconds(2.5f);
 
@@ -337,7 +351,7 @@ public class EndlessTestCharacter : MonoBehaviour
             Coins++;
             coinText.text = "Coin: " + Coins.ToString();
             Destroy(other.gameObject);
-            coinSFX.Play();
+            audioManager.PlaySFX(audioManager.coinSFX);
         }
 
     }
@@ -353,11 +367,15 @@ public class EndlessTestCharacter : MonoBehaviour
 
         StartCoroutine(InvincibilityCountdown());
 
+        audioManager.PlayLoopingSFX(audioManager.invincibilitySFX);
+
         // Wait for invincibility duration
         yield return new WaitForSeconds(10f);
 
         // End invincibility
         isInvincible = false;
+
+        audioManager.StopLoopingSFX();
 
         Physics.IgnoreLayerCollision(playerLayer, obstacleLayer, false);
 

@@ -951,10 +951,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d06f8b64803d6244a98d84fd3286a3a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinSFX: {fileID: 420354820}
-  scoreDisplay: {fileID: 1244312181}
-  disRun: 0
-  addingDis: 0
   movementSpeed: 6
   jumpForce: 25
   forwardSpeed: 5
@@ -2192,7 +2188,7 @@ MonoBehaviour:
   enemyDeathSFX: {fileID: 8300000, guid: c4fd2c631c45cc649b53c53c5404c379, type: 3}
   playerWinSFX: {fileID: 8300000, guid: fadb4b80c3c78cf469c3900995435f22, type: 3}
   enemyWinSFX: {fileID: 8300000, guid: b1b98966c43aec54d81a2aa03fa34d9d, type: 3}
-  InvincibilitySFX: {fileID: 8300000, guid: cc6f436093b89994b8ca116015a70b9a, type: 3}
+  invincibilitySFX: {fileID: 8300000, guid: cc6f436093b89994b8ca116015a70b9a, type: 3}
   buttonClickSFX: {fileID: 8300000, guid: f9a07c1a64fc2614ea630183e9f57502, type: 3}
   fadeDuration: 1.25
 --- !u!4 &750489983 stripped

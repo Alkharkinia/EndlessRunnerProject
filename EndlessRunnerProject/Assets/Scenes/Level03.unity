@@ -958,13 +958,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d06f8b64803d6244a98d84fd3286a3a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinSFX: {fileID: 420354820}
-  scoreDisplay: {fileID: 1244312181}
-  disRun: 0
-  addingDis: 0
   movementSpeed: 10
   jumpForce: 25
-  forwardSpeed: 5
+  forwardSpeed: 12
   spawnManager: {fileID: 1975179791}
   Coins: 0
   distanceTextTMP: {fileID: 529109591}
@@ -3089,10 +3085,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3329182845563803888, guid: 9b9473919cbf34d4ea19a576dd4645c8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5945221476228672477, guid: 9b9473919cbf34d4ea19a576dd4645c8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1111261317}
   m_SourcePrefab: {fileID: 100100000, guid: 9b9473919cbf34d4ea19a576dd4645c8, type: 3}
 --- !u!82 &1111261314 stripped
 AudioSource:
@@ -3104,6 +3104,36 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 5346676978885572682, guid: 9b9473919cbf34d4ea19a576dd4645c8, type: 3}
   m_PrefabInstance: {fileID: 1111261313}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1111261316 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5945221476228672477, guid: 9b9473919cbf34d4ea19a576dd4645c8, type: 3}
+  m_PrefabInstance: {fileID: 1111261313}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1111261317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111261316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3afa846187c4784db13178f9afb767e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSource: {fileID: 1111261315}
+  sfxSource: {fileID: 1111261314}
+  levelTheme: {fileID: 8300000, guid: c80267a9da2c3964d8f13e59a595c20e, type: 3}
+  jumpSFX: {fileID: 8300000, guid: 0ac4715714ced394daeb172d4ed42be4, type: 3}
+  collisionSFX: {fileID: 8300000, guid: 2cee3f231469e1f48b1c2115c2c0c39c, type: 3}
+  coinSFX: {fileID: 8300000, guid: f2aaaff934f9f4429a65d374504f87ae, type: 3}
+  playerDeathSFX: {fileID: 8300000, guid: 5a8bc148705e56b42a6186ef83ea4840, type: 3}
+  enemyDeathSFX: {fileID: 8300000, guid: c4fd2c631c45cc649b53c53c5404c379, type: 3}
+  playerWinSFX: {fileID: 8300000, guid: fadb4b80c3c78cf469c3900995435f22, type: 3}
+  enemyWinSFX: {fileID: 8300000, guid: b1b98966c43aec54d81a2aa03fa34d9d, type: 3}
+  invincibilitySFX: {fileID: 8300000, guid: cc6f436093b89994b8ca116015a70b9a, type: 3}
+  buttonClickSFX: {fileID: 8300000, guid: f9a07c1a64fc2614ea630183e9f57502, type: 3}
+  fadeDuration: 1.25
 --- !u!1001 &1177572953
 PrefabInstance:
   m_ObjectHideFlags: 0
