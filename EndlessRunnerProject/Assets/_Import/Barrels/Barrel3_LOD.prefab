@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4000013706004434}
-  - component: {fileID: 205000011825512236}
   - component: {fileID: 8475498291274622874}
   m_Layer: 0
   m_Name: Barrel3_LOD
@@ -35,29 +34,6 @@ Transform:
   - {fileID: 4000013742257126}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -89.981, y: 0, z: 0}
---- !u!205 &205000011825512236
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000010753552304}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: -0.000000059604645, y: 0, z: 0.7672199}
-  m_Size: 1.5344408
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.43308368
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 23000010509034600}
-  - screenRelativeHeight: 0.04916298
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 23000011386113278}
-  m_Enabled: 1
 --- !u!65 &8475498291274622874
 BoxCollider:
   m_ObjectHideFlags: 0
