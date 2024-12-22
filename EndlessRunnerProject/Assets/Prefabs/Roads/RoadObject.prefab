@@ -306,6 +306,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: sptp_street_light_02
       objectReference: {fileID: 0}
+    - target: {fileID: 140358, guid: 0401a3f0164b9cf40bd8c14f152e69ab, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 490890, guid: 0401a3f0164b9cf40bd8c14f152e69ab, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.3816

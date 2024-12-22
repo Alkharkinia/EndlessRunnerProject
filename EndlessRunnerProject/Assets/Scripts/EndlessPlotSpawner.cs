@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EndlessPlotSpawner : MonoBehaviour
 {
-    private int initAmount = 50;
     private float plotSize = 20f;
     private float xPosLeft = -31.95f;
     private float xPosRight = 31.95f;
@@ -17,16 +16,15 @@ public class EndlessPlotSpawner : MonoBehaviour
     private float elapsedTime = 0f; // Tracks elapsed game time
     private int currentPhase = 1; // Tracks the current difficulty phase
 
-    // Start is called before the first frame update
+    public int plotsPerInterval = 3; // Number of plots to spawn in each interval
+    public float spawnInterval = 10f; // Time between intervals in seconds
+
     void Start()
     {
-        for (int i = 0; i < initAmount; i++)
-        {
-            SpawnPlot();
-        }
+        // Start spawning plots at intervals
+        StartCoroutine(SpawnPlotsAtIntervals());
     }
 
-    // Update is called once per frame
     void Update()
     {
         elapsedTime += Time.deltaTime;
@@ -39,6 +37,18 @@ public class EndlessPlotSpawner : MonoBehaviour
         else if (elapsedTime > 120f && currentPhase == 2) // After 120 seconds, switch to Phase 3
         {
             currentPhase = 3;
+        }
+    }
+
+    private IEnumerator SpawnPlotsAtIntervals()
+    {
+        while (true)
+        {
+            for (int i = 0; i < plotsPerInterval; i++)
+            {
+                SpawnPlot();
+            }
+            yield return new WaitForSeconds(spawnInterval); // Wait for the interval
         }
     }
 

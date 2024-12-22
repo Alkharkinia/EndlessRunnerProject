@@ -21,7 +21,7 @@ public class LevelLoader : MonoBehaviour
         }
         else if (currentScene.name == "Level03Cutscene")
         {
-            SceneManager.LoadScene("Level02", LoadSceneMode.Single);
+            SceneManager.LoadScene("Level03", LoadSceneMode.Single);
         }
         else
         {

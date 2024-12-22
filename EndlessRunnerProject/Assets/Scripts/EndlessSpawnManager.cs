@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EndlessSpawnManager : MonoBehaviour
 {
-    EndlessRoadSpawner roadSpawner;
+    RoadSpawner roadSpawner;
     EndlessPlotSpawner plotSpawner;
 
     private float elapsedTime = 0f; // Tracks elapsed game time
@@ -16,7 +16,7 @@ public class EndlessSpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        roadSpawner = GetComponent<EndlessRoadSpawner>();
+        roadSpawner = GetComponent<RoadSpawner>();
         plotSpawner = GetComponent<EndlessPlotSpawner>();
 
         // Find the player object and its movement script

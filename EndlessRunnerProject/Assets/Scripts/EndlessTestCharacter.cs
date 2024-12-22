@@ -12,8 +12,6 @@ public class EndlessTestCharacter : MonoBehaviour
 {
     public AudioSource coinSFX;
     public TMP_Text scoreDisplay;
-    public int disRun;
-    public bool addingDis = false;
 
     public float movementSpeed = 10f;   // Speed at which the character moves
     public float jumpForce = 0f;        // Jump force magnitude
@@ -73,11 +71,7 @@ public class EndlessTestCharacter : MonoBehaviour
 
         startingZ = playerTransform.position.z;
 
-        // Load the score from PlayerPrefs
-        if (PlayerPrefs.HasKey("HighScore"))
-        {
-            scoreDisplay.text = "Score: " + PlayerPrefs.GetInt("HighScore").ToString();
-        }
+        PlayerPrefs.SetInt("Score", 0);
     }
 
     // Update is called once per frame
@@ -96,18 +90,13 @@ public class EndlessTestCharacter : MonoBehaviour
             }
         }
 
-        if (!addingDis && !isGameOver && !victoryTriggered)
-        {
-            addingDis = true;
-            StartCoroutine(AddingDis());
-        }
-
         if (!isGameOver && !victoryTriggered)
         {
             HandleMovement();
             HandleJump();
             HandleStrafing();
             UpdateDistanceUI();
+            UpdateScore();
         }
 
         if (Coins % 50 == 0 && Coins != 0)
@@ -294,9 +283,9 @@ public class EndlessTestCharacter : MonoBehaviour
                 {
                     SceneManager.LoadScene("GameOverScreen03");
                 }
-                else if (SceneManager.GetActiveScene().name == "LevelEndless")
+                else if (SceneManager.GetActiveScene().name == "EndlessLevel")
                 {
-                    SceneManager.LoadScene("GameOverScreen03");
+                    SceneManager.LoadScene("GameOverScreenEndless");
                 }
                 else
                 {
@@ -393,14 +382,6 @@ public class EndlessTestCharacter : MonoBehaviour
         invincibilityObject.SetActive(false); // Clear the text when invincibility ends
     }
 
-    IEnumerator AddingDis()
-    {
-        disRun += 1;
-        scoreDisplay.text = "" + disRun;
-        yield return new WaitForSeconds(0.25f);
-        addingDis = false;
-    }
-
     private void UpdateScore()
     {
         int distance = Mathf.Abs((int)playerTransform.position.z - (int)startingZ);
@@ -421,8 +402,8 @@ public class EndlessTestCharacter : MonoBehaviour
         }
 
         int score = (distance * pointsPerMeter) + (Coins * 50); // Calculate the score
-        PlayerPrefs.SetInt("HighScore", score); // Save score to PlayerPrefs
-        scoreDisplay.text = "Score: " + score.ToString(); // Update score display
+        PlayerPrefs.SetInt("Score", score); // Save score to PlayerPrefs
+        scoreDisplay.text = score.ToString(); // Update score display
     }
 
 }

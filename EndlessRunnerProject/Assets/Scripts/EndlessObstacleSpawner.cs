@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EndlessObstacleSpawner : MonoBehaviour
 {
-    private int initAmount = 50;
     private float plotSize = 10.3f;
     private float xPos = 0f;
     private float lastZPos = 4.3f;
@@ -16,13 +15,14 @@ public class EndlessObstacleSpawner : MonoBehaviour
     private float elapsedTime = 0f; // Tracks elapsed game time
     private int currentPhase = 1; // Tracks the current difficulty phase
 
+    public int obstaclesPerInterval = 10; // Number of obstacles to spawn in each interval
+    public float spawnInterval = 10f; // Time between intervals in seconds
+
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < initAmount; i++)
-        {
-            SpawnObstacle();
-        }
+        // Start spawning obstacles at intervals
+        StartCoroutine(SpawnObstaclesAtIntervals());
     }
 
     // Update is called once per frame
@@ -38,6 +38,18 @@ public class EndlessObstacleSpawner : MonoBehaviour
         else if (elapsedTime > 120f && currentPhase == 2) // After 120 seconds, switch to Phase 3
         {
             currentPhase = 3;
+        }
+    }
+
+    private IEnumerator SpawnObstaclesAtIntervals()
+    {
+        while (true)
+        {
+            for (int i = 0; i < obstaclesPerInterval; i++)
+            {
+                SpawnObstacle();
+            }
+            yield return new WaitForSeconds(spawnInterval); // Wait for the interval duration
         }
     }
 

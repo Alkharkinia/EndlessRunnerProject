@@ -42,7 +42,7 @@ public class TestCharacter : MonoBehaviour
     private bool isGrounded;
     private bool isInvincible = false;
 
-    private float survivalTime = 150f;
+    private float survivalTime = 120f;
     private float gameTime = 0f;
     private bool isGameOver = false;
     private bool victoryTriggered = false;
