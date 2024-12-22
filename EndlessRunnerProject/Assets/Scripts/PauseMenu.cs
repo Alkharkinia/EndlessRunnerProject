@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using TMPro;
 
 
 public class PauseMenu : MonoBehaviour
@@ -11,6 +13,7 @@ public class PauseMenu : MonoBehaviour
     public static bool gameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    public TMP_Dropdown resolutionDropdown;
 
 
     void Update()
@@ -40,6 +43,8 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;          // Resume time
         gameIsPaused = false;
 
+        resolutionDropdown.interactable = false;
+
         // Restore cursor lock state for gameplay
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -50,6 +55,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);  // Show the pause menu
         Time.timeScale = 0f;          // Pause time
         gameIsPaused = true;
+
+        resolutionDropdown.interactable = true;
 
         // Unlock cursor for menu interaction
         Cursor.lockState = CursorLockMode.None;

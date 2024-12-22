@@ -10,15 +10,13 @@ using TMPro;
 
 public class TestCharacter : MonoBehaviour
 {
-    public AudioSource coinSFX;
-    public TMP_Text scoreDisplay;
-    public int disRun;
-    public bool addingDis = false;
 
     public float movementSpeed = 10f;   // Speed at which the character moves
     public float jumpForce = 0f;        // Jump force magnitude
     public float forwardSpeed = 5f;     // Constant forward speed (vertical movement)
     public SpawnManager spawnManager;   // Reference to the SpawnManager
+
+    LevelAudioManager audioManager;  
 
     public int Coins = 0;
     private float startingZ;
@@ -49,6 +47,11 @@ public class TestCharacter : MonoBehaviour
 
     private int phase = 1; // Phase indicator (1 = Phase 1, 2 = Phase 2, 3 = Phase 3)
 
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<LevelAudioManager>();
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -73,11 +76,8 @@ public class TestCharacter : MonoBehaviour
 
         startingZ = playerTransform.position.z;
 
-        // Load the score from PlayerPrefs
-        if (PlayerPrefs.HasKey("HighScore"))
-        {
-            scoreDisplay.text = "Score: " + PlayerPrefs.GetInt("HighScore").ToString();
-        }
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -94,12 +94,6 @@ public class TestCharacter : MonoBehaviour
             {
                 StartCoroutine(TriggerVictoryAnimation());
             }
-        }
-
-        if (!addingDis && !isGameOver && !victoryTriggered)
-        {
-            addingDis = true;
-            StartCoroutine(AddingDis());
         }
 
         if (!isGameOver && !victoryTriggered)
@@ -132,6 +126,8 @@ public class TestCharacter : MonoBehaviour
         }
 
         animator.SetBool("enemyHasDied", true);
+        audioManager.PlayLoopingSFX(audioManager.enemyDeathSFX);
+        audioManager.PlayLoopingSFX(audioManager.playerWinSFX);
         yield return new WaitForSeconds(10f);
 
         if (SceneManager.GetActiveScene().name == "Level01")
@@ -177,6 +173,8 @@ public class TestCharacter : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             //Debug.Log("Player Jumped.");
 
+            audioManager.PlaySFX(audioManager.jumpSFX);
+
             // Set the Animator trigger for the jump animation
             animator.SetTrigger("Jump");
 
@@ -220,6 +218,10 @@ public class TestCharacter : MonoBehaviour
             gameObject.GetComponent<Rigidbody>().isKinematic = true;
             gameObject.GetComponent<TestCharacter>().forwardSpeed = 0f;
             animator.SetBool("Collision", true);
+            audioManager.PlaySFX(audioManager.collisionSFX);
+
+            audioManager.PlaySFX(audioManager.playerDeathSFX);
+
 
             SpawnEnemies();
 
@@ -279,6 +281,7 @@ public class TestCharacter : MonoBehaviour
             Animator animator = enemy.GetComponent<Animator>(); // Get the Animator component
             if (animator != null)
             {
+                audioManager.PlaySFX(audioManager.enemyWinSFX);
                 animator.SetBool("hasArrived", true); // Trigger the animation change
                 yield return new WaitForSeconds(2.5f);
 
@@ -346,9 +349,9 @@ public class TestCharacter : MonoBehaviour
         {
 
             Coins++;
-            coinText.text = "Coin: " + Coins.ToString();
+            coinText.text = "Coins: " + Coins.ToString();
             Destroy(other.gameObject);
-            coinSFX.Play();
+            audioManager.PlaySFX(audioManager.coinSFX);
         }
 
     }
@@ -364,11 +367,15 @@ public class TestCharacter : MonoBehaviour
 
         StartCoroutine(InvincibilityCountdown());
 
+        audioManager.PlayLoopingSFX(audioManager.invincibilitySFX);
+
         // Wait for invincibility duration
         yield return new WaitForSeconds(10f);
 
         // End invincibility
         isInvincible = false;
+
+        audioManager.StopLoopingSFX();
 
         Physics.IgnoreLayerCollision(playerLayer, obstacleLayer, false);
 
@@ -391,38 +398,6 @@ public class TestCharacter : MonoBehaviour
 
         // Once the countdown is over, turn off the light and clear the text
         invincibilityObject.SetActive(false); // Clear the text when invincibility ends
-    }
-
-    IEnumerator AddingDis()
-    {
-        disRun += 1;
-        scoreDisplay.text = "" + disRun;
-        yield return new WaitForSeconds(0.25f);
-        addingDis = false;
-    }
-
-    private void UpdateScore()
-    {
-        int distance = Mathf.Abs((int)playerTransform.position.z - (int)startingZ);
-        int pointsPerMeter = 0;
-
-        // Set points per meter based on the current phase
-        switch (phase)
-        {
-            case 1:
-                pointsPerMeter = 2; // Phase 1: 2 points per meter
-                break;
-            case 2:
-                pointsPerMeter = 5; // Phase 2: 5 points per meter
-                break;
-            case 3:
-                pointsPerMeter = 10; // Phase 3: 10 points per meter
-                break;
-        }
-
-        int score = (distance * pointsPerMeter) + (Coins * 50); // Calculate the score
-        PlayerPrefs.SetInt("HighScore", score); // Save score to PlayerPrefs
-        scoreDisplay.text = "Score: " + score.ToString(); // Update score display
     }
 
 }
