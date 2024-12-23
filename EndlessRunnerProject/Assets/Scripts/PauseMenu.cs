@@ -68,4 +68,14 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    public void ResetAllLayerCollisions()
+    {
+
+            // Set IgnoreLayerCollision to false for the player layer and each layer
+            Physics.IgnoreLayerCollision(6, 7, false);
+        
+
+        Debug.Log("All layer collisions for the player have been reset to false.");
+    }
+
 }

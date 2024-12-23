@@ -230,6 +230,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1520928195}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: ResetAllLayerCollisions
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &10001154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5870,11 +5882,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1693242511928512370, guid: c9098236193096f4c8e170af9cbcbc5b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000030518
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 1693242511928512370, guid: c9098236193096f4c8e170af9cbcbc5b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 415.99
+      value: 478
       objectReference: {fileID: 0}
     - target: {fileID: 1693242511928512370, guid: c9098236193096f4c8e170af9cbcbc5b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
