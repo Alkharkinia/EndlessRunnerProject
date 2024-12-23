@@ -44,7 +44,9 @@ public class EndlessTestCharacter : MonoBehaviour
     private float survivalTime = 150f;
     private float gameTime = 0f;
     private bool isGameOver = false;
+    private bool hasCollided = false;
     private bool victoryTriggered = false;
+    private bool isInputDisabled = false;
 
     private int phase = 1; // Phase indicator (1 = Phase 1, 2 = Phase 2, 3 = Phase 3)
 
@@ -155,14 +157,23 @@ public class EndlessTestCharacter : MonoBehaviour
 
     void HandleMovement()
     {
-        // Handle horizontal movement (left/right) with player input (A/D or Left/Right Arrow)
-        float hMovement = Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime;
+        if (!isInputDisabled)
+        {
 
-        // Apply constant forward movement along the z-axis (vertical movement in Unity's world space)
-        float vMovement = forwardSpeed * Time.deltaTime; // Constant speed on the z-axis
+            // Handle horizontal movement (left/right) with player input (A/D or Left/Right Arrow)
+            float hMovement = Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime;
 
-        // Move the character based on input and constant forward speed
-        transform.Translate(new Vector3(hMovement, 0, vMovement));
+            // Apply constant forward movement along the z-axis (vertical movement in Unity's world space)
+            float vMovement = forwardSpeed * Time.deltaTime; // Constant speed on the z-axis
+
+            // Move the character based on input and constant forward speed
+            transform.Translate(new Vector3(hMovement, 0, vMovement));
+
+        }
+        else
+        {
+            return;
+        }
     }
 
     void HandleJump()
@@ -213,10 +224,11 @@ public class EndlessTestCharacter : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.CompareTag("Obstacle"))
+        if (collision.gameObject.CompareTag("Obstacle") && !hasCollided)
         {
             isGameOver = true;
-            gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            hasCollided = true;
+            isInputDisabled = true;
             gameObject.GetComponent<EndlessTestCharacter>().forwardSpeed = 0f;
             animator.SetBool("Collision", true);
             audioManager.PlaySFX(audioManager.collisionSFX);
@@ -281,6 +293,7 @@ public class EndlessTestCharacter : MonoBehaviour
             Animator animator = enemy.GetComponent<Animator>(); // Get the Animator component
             if (animator != null)
             {
+                audioManager.PlaySFX(audioManager.enemyWinSFX);
                 audioManager.PlaySFX(audioManager.enemyWinSFX);
                 animator.SetBool("hasArrived", true); // Trigger the animation change
                 yield return new WaitForSeconds(2.5f);

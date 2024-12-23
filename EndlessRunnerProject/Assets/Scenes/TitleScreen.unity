@@ -331,6 +331,18 @@ MonoBehaviour:
           m_StringArgument: Level01Cutscene
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MenuLoader, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &100504470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1243,6 +1255,7 @@ GameObject:
   - component: {fileID: 472837579}
   - component: {fileID: 472837578}
   - component: {fileID: 472837577}
+  - component: {fileID: 472837581}
   m_Layer: 5
   m_Name: LevelSelectionMenu
   m_TagString: Untagged
@@ -1338,6 +1351,19 @@ RectTransform:
   m_AnchoredPosition: {x: 960, y: 540}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &472837581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472837576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c16647208937de24797d12dc9f630af0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstSelected: {fileID: 100504469}
 --- !u!115 &605940661
 MonoScript:
   m_ObjectHideFlags: 0
@@ -3663,7 +3689,6 @@ GameObject:
   - component: {fileID: 1540627185}
   - component: {fileID: 1540627184}
   - component: {fileID: 1540627187}
-  - component: {fileID: 1540627188}
   - component: {fileID: 1540627189}
   m_Layer: 5
   m_Name: HighscoreMenu
@@ -3770,18 +3795,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstSelected: {fileID: 2025373803}
---- !u!114 &1540627188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1540627182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 841b25b8b885d5e49a59c55d19b8e121, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1540627189
 MonoBehaviour:
   m_ObjectHideFlags: 0
